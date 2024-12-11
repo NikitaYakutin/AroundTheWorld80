@@ -7,11 +7,12 @@
 
     <TextView
         android:id="@+id/question_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сигма?"
+        android:text="Вопрос"
         android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
 
     <Button
         android:id="@+id/btnA"
@@ -41,10 +42,8 @@
         android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/results_button"
+        android:id="@+id/back_to_map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Посмотреть результаты"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp" />
+        android:text="Назад к карте" />
 </LinearLayout>

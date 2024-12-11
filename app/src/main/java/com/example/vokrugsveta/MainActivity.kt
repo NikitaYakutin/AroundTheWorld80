@@ -1,17 +1,17 @@
 package com.example.vokrugsveta
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.TilesOverlay
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,6 +47,15 @@ class MainActivity : AppCompatActivity() {
         addMarker(GeoPoint(55.7558, 37.6173), "Москва", "Вопрос о Москве")
         addMarker(GeoPoint(48.8566, 2.3522), "Париж", "Вопрос о Париже")
         addMarker(GeoPoint(-22.9068, -43.1729), "Рио-де-Жанейро", "Вопрос о Рио-де-Жанейро")
+       addMarker(GeoPoint(34.0522, -118.2437), "Лос-Анджелес", "Вопрос о Лос-Анджелесе")
+
+
+        // Добавляем кнопку Личный кабинет
+        val profileButton: Button = findViewById(R.id.profile_button)
+        profileButton.setOnClickListener {
+            val intent = Intent(this, ResultsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addMarker(position: GeoPoint, title: String, description: String) {
@@ -57,10 +66,11 @@ class MainActivity : AppCompatActivity() {
 
         marker.setOnMarkerClickListener { _, _ ->
             val intent = Intent(this, QuizActivity::class.java)
-            intent.putExtra("question", title)
+            intent.putExtra("city", title) // Передаем название города
             startActivity(intent)
             true
         }
+
         mapView.overlays.add(marker)
     }
 

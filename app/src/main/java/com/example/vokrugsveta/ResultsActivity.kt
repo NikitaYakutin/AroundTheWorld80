@@ -12,15 +12,25 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
 
-        val correctAnswers = intent.getIntExtra("correctAnswers", 0)
-        val totalQuestions = intent.getIntExtra("totalQuestions", 0)
+        // Получаем все результаты викторин из SharedPreferences
+        val sharedPreferences = getSharedPreferences("quiz_results", MODE_PRIVATE)
+        val quizHistory = sharedPreferences.getString("quizHistory", "Нет результатов") ?: "Нет результатов"
 
+        // Инициализация TextView и отображение всех результатов
         val resultsText: TextView = findViewById(R.id.results_text)
-        resultsText.text = "Вы ответили правильно на $correctAnswers из $totalQuestions вопросов."
+        resultsText.text = quizHistory
+        val clearHistoryButton: Button = findViewById(R.id.clear_history_button)
+        clearHistoryButton.setOnClickListener {
+            // Очистить историю викторин в SharedPreferences
+            val editor = sharedPreferences.edit()
+            editor.remove("quizHistory")  // Удаляем сохраненные результаты
+            editor.apply()
 
+            // Обновить текст в TextView, чтобы отобразить пустую историю
+            resultsText.text = "История очищена"
+        }
         val backToMapButton: Button = findViewById(R.id.back_to_map_button)
         backToMapButton.setOnClickListener {
-            // Возвращение к карте
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
